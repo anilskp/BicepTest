@@ -1,4 +1,11 @@
-resource logicAppIntegrationAccount 'Microsoft.Logic/integrationAccounts@2016-06-01' = {
-  name: 'name'
+param location string = resourceGroup().location
+
+resource azStorageAccout 'Microsoft.Storage/storageAccounts@2021-09-01' = {
+  name: 'bicepstorage'
   location: location
+
+  kind: 'StorageV2'
+  sku: {
+    name: 'Premium_LRS'
+  }
 }
