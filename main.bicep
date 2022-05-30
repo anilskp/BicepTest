@@ -8,12 +8,12 @@ var envResourceNamePrefix = toLower(resourceNamePrefix)
 param deploymentNameId string = '00000000'
 
 @description('Name of the staging deployment slot')
-param functionAppStagingSlot = 'staging'
+param functionAppStagingSlot string = 'staging'
 
 
 
 resource azStorageAccout 'Microsoft.Storage/storageAccounts@2021-09-01' = {
-  name: '${envResourceNamePrefix}.storage'
+  name: '${envResourceNamePrefix}storage19669'
   location: location
 
   kind: 'StorageV2'
@@ -21,6 +21,7 @@ resource azStorageAccout 'Microsoft.Storage/storageAccounts@2021-09-01' = {
     name: 'Standard_LRS'
   }
 }
+
 
 var azStorageAccountPrimaryAccessKey = listKeys( azStorageAccout.id,azStorageAccout.apiVersion).keys[0].value
 
