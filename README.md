@@ -1,5 +1,22 @@
 # Biceptest
 
+
+# Deploy the file 
+
+az group create --name exampleRG --location eastus
+
+az deployment group create --resource-group exampleRG --template-file main.bicep --parameters adminUsername=<admin-username>
+
+# Replace <admin-username> with a unique username. You'll # also be prompted to enter adminPasswordOrKey.
+
+# Clean up the resources
+
+az group delete --name exampleRG
+
+
+
+
+
 az deployment group create --name MyDeploy1 --resource-group biceptest-rg --template-file main.bicep --parameters deploymentNameId=MyDeploy1-1 resourceNamePrefix=anil
 
 
