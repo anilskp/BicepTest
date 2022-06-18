@@ -73,6 +73,9 @@ resource nic 'Microsoft.Network/networkInterfaces@2021-05-01' = {
           privateIPAllocationMethod: 'Dynamic'
           publicIPAddress: {
             id: publicIP.id
+            zones: [
+                '1'
+            ]
           }
         }
       }
@@ -81,6 +84,7 @@ resource nic 'Microsoft.Network/networkInterfaces@2021-05-01' = {
       id: nsg.id
     }
   }
+  
 }
 
 resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
@@ -131,21 +135,26 @@ resource publicIP 'Microsoft.Network/publicIPAddresses@2021-05-01' = {
   name: publicIPAddressName
   location: location
   sku: {
-    name: 'Basic'
+    name: 'Standard'
   }
   properties: {
-    publicIPAllocationMethod: 'Dynamic'
+    publicIPAllocationMethod: 'Static'
     publicIPAddressVersion: 'IPv4'
     dnsSettings: {
       domainNameLabel: dnsLabelPrefix
     }
     idleTimeoutInMinutes: 4
   }
+  zones: [
+    '1'
+  ]
 }
 
 resource vm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
   name: vmName
   location: location
+
+
   properties: {
     hardwareProfile: {
       vmSize: vmSize
@@ -178,6 +187,9 @@ resource vm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
       linuxConfiguration: ((authenticationType == 'password') ? null : linuxConfiguration)
     }
   }
+  zones: [
+    '1'
+  ]
 }
 
 output adminUsername string = adminUsername
